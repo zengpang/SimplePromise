@@ -1,0 +1,26 @@
+class SimplePromise{
+    succeed=null;
+    fail=null;
+    state=`pending`
+    resolve(result){
+        setTimeout(()=>{
+            this.state=`fulfilled`;
+            this.succeed(result);
+        })
+    }
+    reject(reason){
+        setTimeout(()=>{
+            this.state=`rejected`;
+            this.fail(reason);
+        })
+    }
+    constructor(fn)
+    {
+        fn(this.resolve.bind(this),this.reject.bind(this))
+    }
+    then(succeed,fail)
+    {
+        this.succeed=succeed;
+        this.fail=fail;
+    }
+}
